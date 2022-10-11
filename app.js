@@ -44,6 +44,7 @@ app.get('/api/v1/tours/:id', (req, res) => {
   const { id = null } = req.params;
 
   const tour = tours.find((el) => el.id === +id);
+
   if (!tour)
     return res.status(404).send({ status: 'fail', message: 'Invalid ID' });
 
