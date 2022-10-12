@@ -56,6 +56,20 @@ app.get('/api/v1/tours/:id', (req, res) => {
   });
 });
 
+app.patch('/api/v1/tours/:id', (req, res) => {
+  const { id = null } = req.params;
+
+  if (+id > tours.length)
+    return res.status(404).send({ status: 'fail', message: 'Invalid ID' });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour: '<Updated tour here...>',
+    },
+  });
+});
+
 const port = 3010;
 
 app.listen(port, () => {
