@@ -70,6 +70,18 @@ app.patch('/api/v1/tours/:id', (req, res) => {
   });
 });
 
+app.delete('/api/v1/tours/:id', (req, res) => {
+  const { id = null } = req.params;
+
+  if (+id > tours.length)
+    return res.status(404).send({ status: 'fail', message: 'Invalid ID' });
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
 const port = 3010;
 
 app.listen(port, () => {
