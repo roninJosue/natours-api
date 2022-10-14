@@ -4,7 +4,7 @@
   "description": "Implement Express, MongoDB and Node.js for create a basic API",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
