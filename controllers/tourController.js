@@ -15,6 +15,19 @@ exports.checkID = (req, res, next, val) => {
   next();
 };
 
+exports.checkBody = (req, res, next) => {
+  const {
+    body: { name = null, price = null },
+  } = req;
+  if (!name || !price) {
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Missing name or price',
+    });
+  }
+  next();
+};
+
 exports.getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
@@ -40,8 +53,6 @@ exports.getTour = (req, res) => {
 };
 
 exports.createTour = (req, res) => {
-  console.log(req.body);
-
   const newId = tours[tours.length - 1].id + 1;
   const newTour = { id: newId, ...req.body };
 
