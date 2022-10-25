@@ -59,7 +59,7 @@ exports.createTour = (req, res) => {
   fs.writeFile(
     `${__dirname}/dev-data/data/tours-simple.json`,
     JSON.stringify(tours),
-    (err) => {
+    (_err) => {
       res.status(201).send({
         status: 'success',
         data: {
