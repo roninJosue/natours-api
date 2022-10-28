@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Tour = require('./../../modules/tourModel');
 
-dotenv.config({ path: `./../../../config.env` });
+dotenv.config({ path: './../../config.env' });
 
-console.log(process);
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
@@ -17,12 +16,14 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then(() => console.log('DB connection successful'));
+  .then(() => console.log('DB connection successful!'));
 
+// READ JSON FILE
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8')
 );
 
+// IMPORT DATA INTO DB
 const importData = async () => {
   try {
     await Tour.create(tours);
@@ -30,8 +31,10 @@ const importData = async () => {
   } catch (err) {
     console.log(err);
   }
+  process.exit();
 };
 
+// DELETE ALL DATA FROM DB
 const deleteData = async () => {
   try {
     await Tour.deleteMany();
@@ -39,9 +42,11 @@ const deleteData = async () => {
   } catch (err) {
     console.log(err);
   }
+  process.exit();
 };
 
-//deleteData();
-//importData();
-
-//console.log(process.argv);
+if (process.argv[2] === '--import') {
+  importData();
+} else if (process.argv[2] === '--delete') {
+  deleteData();
+}
