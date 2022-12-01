@@ -37,5 +37,3 @@ process.on('unhandledRejection', (err) => {
     process.exit(1);
   });
 });
-
-console.log(s);
