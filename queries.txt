@@ -1,0 +1,7 @@
+tours?duration[gte]=8&difficulty=easy&page=5&price[lt]=1900
+
+tours?sort=-price,-ratingsAverage
+
+tours?fields=name,duration,price
+
+?fields=name
