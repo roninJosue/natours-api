@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -16,9 +17,13 @@ const app = express();
 
 app.use(helmet());
 
-//if (process.env.NODE_ENV === 'development') {
-app.use(morganMiddleware);
-//}
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morganMiddleware);
+}
 
 const limiter = rateLimit({
   max: 100,
@@ -43,11 +48,16 @@ app.use(
   })
 );
 
-app.use(express.static(`${__dirname}/public/`));
-
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
+});
+
+app.get('/', (req, res, next) => {
+  res.status(200).render('base', {
+    tour: 'The Forest Hiker',
+    user: 'Reynaldo',
+  });
 });
 
 app.use('/api/v1/tours', tourRouter);
