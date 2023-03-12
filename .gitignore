@@ -7,3 +7,4 @@
 /dev-data/data/import-dev-data.js
 .cache/
 public/js/bundle.*
+public/img/users
