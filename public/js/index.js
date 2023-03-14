@@ -19,10 +19,11 @@ if (loginForm) {
 if (updateForm) {
   document.querySelector('.form-user-data').addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log('UPDATE');
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    updateSettings({ name, email }, 'data');
+    const formData = new FormData();
+    formData.append('name', document.getElementById('name').value);
+    formData.append('email', document.getElementById('email').value);
+    formData.append('photo', document.getElementById('photo').files[0]);
+    updateSettings(formData, 'data');
   });
 }
 if (userPasswordForm) {
