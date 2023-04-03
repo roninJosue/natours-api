@@ -7,6 +7,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const morganMiddleware = require('./middlewares/morgan.middleware');
 const AppError = require('./utils/appError');
@@ -26,6 +27,7 @@ app.use(
   })
 );
 app.use(cors());
+app.options('*', cors());
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -59,6 +61,7 @@ app.use(
     ],
   })
 );
+app.use(compression());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
